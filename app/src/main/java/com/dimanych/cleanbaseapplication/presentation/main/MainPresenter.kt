@@ -8,12 +8,15 @@ import com.dimanych.cleanbaseapplication.util.Screens.MAIN_SCREEN
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
+/**
+ * @author Dmitrii Grigorev
+ */
 @ActivityScope
 class MainPresenter @Inject constructor(
         private val router: Router,
         private val interactor: MainInteractor
 ) : AbstractBasePresenter<MainView>() {
 
-    fun openMainScreen() = router.navigateTo(LOGIN_SCREEN)
+    fun openMainScreen() = router.navigateTo(MAIN_SCREEN)
 
 }

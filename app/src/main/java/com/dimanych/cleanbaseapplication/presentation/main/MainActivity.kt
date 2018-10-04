@@ -5,6 +5,9 @@ import com.dimanych.cleanbaseapplication.R
 import com.dimanych.cleanbaseapplication.base.AbstractBaseActivity
 import com.dimanych.cleanbaseapplication.util.bind.Layout
 
+/**
+ * @author Dmitrii Grigorev
+ */
 @Layout(R.layout.activity_main)
 class MainActivity : AbstractBaseActivity<MainView, MainPresenter, MainNavigator>(), MainView {
 

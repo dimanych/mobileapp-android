@@ -1,12 +1,12 @@
 package com.dimanych.cleanbaseapplication.di
 
-import com.dimanych.cleanbaseapplication.di.activity.ActivityScope
+import com.dimanych.cleanbaseapplication.BuildConfig
+import com.dimanych.cleanbaseapplication.data.main.MainApi
 import com.dimanych.cleanbaseapplication.util.TokenInterceptor
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,41 +20,49 @@ import javax.inject.Singleton
 class ApiModule {
 
     companion object {
-        const val READ_TIMEOUT = 3
+        const val READ_TIMEOUT = 15
+        const val API_HOST = "http://weyveed.herokuapp.com"
     }
 
     @Provides
     @Singleton
-    internal fun provideNetworkInterceptors(): List<Interceptor> {
-        return listOf<Interceptor>(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-    }
+    internal fun provideNetworkInterceptors(): HttpLoggingInterceptor =
+            HttpLoggingInterceptor().apply {
+                level = if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else {
+                    HttpLoggingInterceptor.Level.NONE
+                }
+            }
 
     @Provides
     internal fun provideOkHttpClient(tokenInterceptor: TokenInterceptor,
-                                     @ActivityScope networkInterceptors:
-                                     List<@JvmSuppressWildcards Interceptor>)
-            : OkHttpClient {
-        val okHttpClientBuilder = OkHttpClient.Builder()
-                .readTimeout(READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
-                .addInterceptor(tokenInterceptor)
-        networkInterceptors.forEach { okHttpClientBuilder.addInterceptor(it) }
-        return okHttpClientBuilder
-                .build()
-    }
+                                     logginInterceptor: HttpLoggingInterceptor)
+            : OkHttpClient = OkHttpClient.Builder()
+            .readTimeout(READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
+            .addInterceptor(tokenInterceptor)
+            .addInterceptor(logginInterceptor)
+            .build()
 
     @Provides
     internal fun provideGson(): Gson = Gson()
 
     @Provides
     internal fun provideRetrofitBuilder(gson: Gson, okHttpClient: OkHttpClient)
-            : Retrofit.Builder {
-        return Retrofit.Builder()
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory
-                        .createWithScheduler(Schedulers.io()))
-                .client(okHttpClient)
-    }
+            : Retrofit.Builder = Retrofit.Builder()
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory
+                    .createWithScheduler(Schedulers.io()))
+            .client(okHttpClient)
+
+    @Provides
+    fun provideMainApi(retrofitBuilder: Retrofit.Builder,
+                       okHttpClient: OkHttpClient): MainApi = retrofitBuilder
+            .baseUrl(API_HOST)
+            .client(okHttpClient)
+            .build()
+            .create(MainApi::class.java)
 
 
 }

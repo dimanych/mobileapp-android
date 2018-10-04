@@ -2,18 +2,18 @@
 
     <!--Common-->
     <string name="app_name">Application</string>
-    <string name="app_caption">Application</string>
+    <string name="app_caption">The Best Application</string>
 
     <!--Main screen-->
-    <string name="main_add_active_report">Добавить отчет о посещении</string>
+
 
     <!--Login screen-->
-    <string name="login_hint">Логин</string>
-    <string name="login_password_hint">Пароль</string>
-    <string name="login_enter">Войти</string>
+    <string name="login_hint">Login</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_enter">Enter</string>
 
     <!--Error screen-->
-    <string name="error_title">Произошла ошибка при загрузке экрана, попробуйте заново</string>
+    <string name="error_title">Something wrong. Please return previous screen</string>
 
 
 </resources>

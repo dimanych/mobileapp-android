@@ -6,14 +6,11 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 class LoginPresenter @Inject internal constructor(
-        private val router: Router,
-        private val interactor: MainInteractor
+        private val router: Router
 ) : AbstractBasePresenter<LoginView>() {
 
-    fun loadData() {
-        subscribe(interactor.loadData(), {
-            getView()?.onDataLoaded(it)
-        })
+    //@TODO implement authorisation
+    fun auth(login: String, password: String) {
     }
 
 

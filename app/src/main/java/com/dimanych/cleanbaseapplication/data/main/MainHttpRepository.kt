@@ -1,11 +1,15 @@
 package com.dimanych.cleanbaseapplication.data.main
 
+import com.dimanych.cleanbaseapplication.data.main.model.ImageData
+import dagger.Reusable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class MainHttpRepository @Inject constructor() : MainRepository {
+@Reusable
+class MainHttpRepository @Inject constructor(private val mainApi: MainApi) {
 
-    override fun getData(): Single<String> {
-        return Single.just("data")
+    fun loadImages(): Single<List<ImageData>> {
+        return mainApi.loadImagesList()
+                .map { imageSources -> imageSources.map { ImageData(it) } }
     }
 }

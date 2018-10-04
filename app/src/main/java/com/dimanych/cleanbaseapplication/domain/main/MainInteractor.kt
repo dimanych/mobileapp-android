@@ -1,17 +1,16 @@
 package com.dimanych.cleanbaseapplication.domain.main
 
-import com.dimanych.cleanbaseapplication.data.main.MainRepository
+import com.dimanych.cleanbaseapplication.data.main.MainHttpRepository
+import com.dimanych.cleanbaseapplication.data.main.model.ImageData
+import dagger.Reusable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@Reusable
 class MainInteractor @Inject constructor(
-        val apiRepository: MainRepository
+        val httpRepository: MainHttpRepository
 ) {
 
-    fun loadData(): Single<String> = apiRepository.getData()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    fun loadImages(): Single<List<ImageData>> = httpRepository.loadImages()
 
 }

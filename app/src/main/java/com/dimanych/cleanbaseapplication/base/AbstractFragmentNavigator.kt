@@ -1,4 +1,4 @@
-package com.dimanych.cleanbaseapplication.presentation.base
+package com.dimanych.cleanbaseapplication.base
 
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast

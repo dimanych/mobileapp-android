@@ -17,17 +17,41 @@ import java.lang.ref.WeakReference
 abstract class AbstractBasePresenter<T : BaseView> : BasePresenter<T> {
 
     private var view: WeakReference<T>? = null
+    /**
+     * Subscribers for actions
+     */
     private val disposables = CompositeDisposable()
 
+    /**
+     * For attaching to View
+     */
     override fun takeView(t: T) {
         view = WeakReference(t)
+        if (view != null) {
+            onFirstAttach()
+        }
     }
 
+    /**
+     * For detaching from View. Need for cleaning subscribes, etc
+     */
     override fun detachFromView() {
         disposables.clear()
     }
     
     fun getView() = view?.get()
+
+    /**
+     * On first attach presenter can load some init data
+     */
+    open fun onFirstAttach() {}
+
+
+    /**
+     * Subscribers for interactions.
+     * Every method has default flow switching for background and main flows,
+     * also added onError default handler
+     */
 
     fun <T> subscribe(observable: Single<T>, action: ((T) -> Unit)) {
         disposables.add(observable
