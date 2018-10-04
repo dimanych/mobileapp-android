@@ -1,0 +1,19 @@
+<resources>
+
+    <!--Common-->
+    <string name="app_name">Application</string>
+    <string name="app_caption">Application</string>
+
+    <!--Main screen-->
+    <string name="main_add_active_report">Добавить отчет о посещении</string>
+
+    <!--Login screen-->
+    <string name="login_hint">Логин</string>
+    <string name="login_password_hint">Пароль</string>
+    <string name="login_enter">Войти</string>
+
+    <!--Error screen-->
+    <string name="error_title">Произошла ошибка при загрузке экрана, попробуйте заново</string>
+
+
+</resources>
