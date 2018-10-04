@@ -9,7 +9,7 @@ class LoginPresenter @Inject internal constructor(
         private val router: Router
 ) : AbstractBasePresenter<LoginView>() {
 
-    //@TODO implement authorisation
+    //TODO implement authorisation
     fun auth(login: String, password: String) {
     }
 

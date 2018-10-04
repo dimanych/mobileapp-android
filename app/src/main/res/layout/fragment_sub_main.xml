@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/content_standard"
+        android:layout_gravity="center_horizontal"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tlTitle"

@@ -2,8 +2,8 @@
 <resources>
 
     <!--Base-->
-    <dimen name="margin_standard">16dp</dimen>
-    <dimen name="margin_light">8dp</dimen>
+    <dimen name="content_standard">16dp</dimen>
+    <dimen name="content_light">8dp</dimen>
 
     <!--Login-->
     <dimen name="caption_size">18sp</dimen>
