@@ -26,7 +26,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideNetworkInterceptors(): HttpLoggingInterceptor =
+    internal fun proviideLogginInterceptor(): HttpLoggingInterceptor =
             HttpLoggingInterceptor().apply {
                 level = if (BuildConfig.DEBUG) {
                     HttpLoggingInterceptor.Level.BODY

@@ -26,19 +26,5 @@ class SubMainFragment : AbstractBaseFragment<SubMainView, SubMainPresenter>(), S
         val pagerAdapter = ImagesPagerAdapter(requireActivity().supportFragmentManager)
         vpPager.adapter = pagerAdapter
         tlTitle.setupWithViewPager(vpPager)
-
-        vpPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(page: Int) {
-
-            }
-
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-
-            }
-
-            override fun onPageSelected(page: Int) {
-
-            }
-        })
     }
 }

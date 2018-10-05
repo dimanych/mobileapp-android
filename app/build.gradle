@@ -41,6 +41,7 @@ ext {
     picasso = "2.71828"
 
     junit = "4.12"
+    mockito = "2.20.1"
 }
 
 dependencies {
@@ -79,4 +80,5 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picasso"
     //Test
     testImplementation "junit:junit:$junit"
+    testImplementation "org.mockito:mockito-core:$mockito"
 }

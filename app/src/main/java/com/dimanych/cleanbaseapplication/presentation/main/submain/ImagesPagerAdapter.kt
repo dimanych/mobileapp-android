@@ -12,7 +12,7 @@ import com.dimanych.cleanbaseapplication.presentation.main.submain.prevoius.Perv
  */
 class ImagesPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
-    val pages = listOf("Images", "Last Selected Image", "Previous Selected Image")
+    private val pages = listOf("Images", "Last Selected Image", "Previous Selected Image")
 
     override fun getItem(position: Int): Fragment =
             when (position) {
