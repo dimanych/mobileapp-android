@@ -22,4 +22,11 @@ class MainLocalRepository @Inject constructor(
         return preferencesHelper.getImagesList()
     }
 
+    //TODO temporally decision, NEED MIGRATE TO DATABASE
+    fun loadImage(id: Int): Single<ImageData> {
+        return preferencesHelper.getImagesList()
+                .map { it[id] }
+
+    }
+
 }

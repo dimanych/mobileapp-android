@@ -13,4 +13,6 @@ interface ImagesView : BaseView {
      */
     fun onImagesLoaded(imageDataList: List<ImageData>)
 
+    fun onSelectedId(position: Int)
+
 }

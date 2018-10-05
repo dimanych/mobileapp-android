@@ -6,10 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.dimanych.cleanbaseapplication.R
 import com.dimanych.cleanbaseapplication.data.main.model.ImageData
+import com.dimanych.cleanbaseapplication.domain.counter.CounterInteractor
 import com.dimanych.cleanbaseapplication.util.extensions.load
+import dagger.Reusable
 import kotlinx.android.synthetic.main.item_images_select.view.*
+import javax.inject.Inject
 
-class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+@Reusable
+class ImageAdapter @Inject constructor(
+        private val interactor: CounterInteractor
+) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     private val imagesList = mutableListOf<ImageData>()
     private var lastCheckedPosition = -1
@@ -33,17 +39,24 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setChecked(position: Int) {
+        lastCheckedPosition = position
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindImageData(imageData: ImageData) {
             itemView.ivSelected.load(imageData.imgSource)
-            val clickListener = {
-                lastCheckedPosition = adapterPosition
-                notifyDataSetChanged()
-            }
 
-            itemView.rbSelected.setOnClickListener { clickListener.invoke() }
-            itemView.setOnClickListener { clickListener.invoke() }
+            itemView.rbSelected.setOnClickListener { clickListener() }
+            itemView.setOnClickListener { clickListener() }
+        }
+
+        private fun clickListener() {
+            interactor.notifySelectedChanged(adapterPosition)
+            lastCheckedPosition = adapterPosition
+            notifyDataSetChanged()
         }
 
     }

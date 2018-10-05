@@ -9,6 +9,7 @@ import com.dimanych.cleanbaseapplication.base.AbstractBaseFragment
 import com.dimanych.cleanbaseapplication.data.main.model.ImageData
 import com.dimanych.cleanbaseapplication.util.bind.Layout
 import kotlinx.android.synthetic.main.fragment_images.*
+import javax.inject.Inject
 
 /**
  * @author Dmitrii Grigorev
@@ -16,7 +17,8 @@ import kotlinx.android.synthetic.main.fragment_images.*
 @Layout(R.layout.fragment_images)
 class ImagesFragment : AbstractBaseFragment<ImagesView, ImagesPresenter>(), ImagesView {
 
-    val adapter = ImageAdapter()
+    @Inject
+    lateinit var adapter: ImageAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,5 +33,8 @@ class ImagesFragment : AbstractBaseFragment<ImagesView, ImagesPresenter>(), Imag
         adapter.setItems(imageDataList)
     }
 
+    override fun onSelectedId(position: Int) {
+        adapter.setChecked(position)
+    }
 }
 

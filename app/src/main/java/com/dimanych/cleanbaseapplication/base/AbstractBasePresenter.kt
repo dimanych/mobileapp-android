@@ -1,9 +1,6 @@
 package com.dimanych.cleanbaseapplication.base
 
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Maybe
-import io.reactivex.Single
+import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -64,6 +61,16 @@ abstract class AbstractBasePresenter<T : BaseView> : BasePresenter<T> {
     }
 
     fun <T> subscribe(observable: Maybe<T>, action: ((T) -> Unit)) {
+        disposables.add(observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ action.invoke(it) }, {
+                    getView()?.onError(it.localizedMessage)
+                    Timber.e(it)
+                }))
+    }
+
+    fun <T> subscribe(observable: Observable<T>, action: ((T) -> Unit)) {
         disposables.add(observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
